@@ -20,10 +20,16 @@ peer.on("open", id => {
 const refreshPeersListButtonEl = document.querySelector(".list-all-peers-button")
 refreshPeersListButtonEl.addEventListener("click", () => {
   peer.listAllPeers(peers => {
-    const peerListEl = document.querySelector(".peers-container")
-    peerListEl.innerText = peers
+    const peerListEl = document.querySelector(".peers")
+    const peerEl = peers
+      .map(peer => {
+        return `<li><button>${peer}</button></li>`
+      })
+      .join("")
 
-    console.log(listAllPeers)
+    const ulEl = document.createElement("ul")
+    ulEl.innerHTML = peerEl
+    peerListEl.appendChild(ulEl)
   })
   console.log("click")
 })
