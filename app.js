@@ -15,6 +15,9 @@ peer.on("open", id => {
 
   peerIdEl.innerText = id
 })
+peer.on("error", errorMessage => {
+  console.error(errorMessage)
+})
 
 // Event listener for click "Refresh list"
 const refreshPeersListButtonEl = document.querySelector(".list-all-peers-button")
