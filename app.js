@@ -22,6 +22,10 @@ refreshPeersListButtonEl.addEventListener("click", () => {
   peer.listAllPeers(peers => {
     const peerListEl = document.querySelector(".peers")
     const peerEl = peers
+      .filter(peerId => {
+        if (peerId === peer._id) return false
+        return true
+      }) //remove our own name
       .map(peer => {
         return `<li><button>${peer}</button></li>`
       })
