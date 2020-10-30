@@ -1,8 +1,14 @@
-// let globalVar = 1234 can be accessed
+//anonym function
 ;(function () {
-  // let notGlobalVar = 5555 cannot be accessed
-
-  //anonym function
+  //our querySelectors
+  //Event Listener for click peer button
+  const peers = document.querySelector(".peers")
+  peers.addEventListener("click", event => {
+    if (!event.target.classList.contains("connect-button")) return
+    //console.log(event.target.innerText)
+    const peerName = event.target.innerText
+    console.log(peerName)
+  })
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
 
@@ -36,7 +42,7 @@
           return true
         }) //remove our own name
         .map(peer => {
-          return `<li><button>${peer}</button></li>`
+          return `<li><button class="connect-button">${peer}</button></li>`
         })
         .join("")
 
