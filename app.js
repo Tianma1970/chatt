@@ -1,11 +1,14 @@
+// let globalVar = 1234 can be accessed
 ;(function () {
+  // let notGlobalVar = 5555 cannot be accessed
+
   //anonym function
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
 
   //Connect to peer server
 
-  peer = new Peer(peerId, {
+  let peer = new Peer(peerId, {
     host: "glajan.com",
     port: 8443,
     path: "/myapp",
@@ -17,6 +20,7 @@
 
     peerIdEl.innerText = id
   })
+  //we need to ensure, we are connected to the server
   peer.on("error", errorMessage => {
     console.error(errorMessage)
   })
