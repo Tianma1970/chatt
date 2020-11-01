@@ -3,12 +3,7 @@
   //our querySelectors
   //Event Listener for click peer button
   const peers = document.querySelector(".peers")
-  peers.addEventListener("click", event => {
-    if (!event.target.classList.contains("connect-button")) return
-    //console.log(event.target.innerText)
-    const peerName = event.target.innerText
-    console.log(peerName)
-  })
+
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
 
@@ -50,6 +45,25 @@
       ulEl.innerHTML = peerEl
       peerListEl.appendChild(ulEl)
     })
-    console.log("click")
+  })
+  //connect to peer
+  peers.addEventListener("click", event => {
+    if (!event.target.classList.contains("connect-button")) return
+
+    const peerName = event.target.innerText
+    const theirPeerId = event.target.innerText
+    const dataConnection = peer.connect(theirPeerId)
+    dataConnection.on("open", () => {
+      console.log("connection open")
+      //Dispatch Custom Event with connected peer id
+      const event = new CustomEvent("peer-changed", {
+        detail: theirPeerId
+      })
+      document.dispatchEvent(event)
+    })
+    //listen for custom event "peer-changed"
+    document.addEventListener("peer-changed", event => {
+      console.log(event)
+    })
   })
 })() //end of anonym function. you need to add '()'
