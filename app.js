@@ -61,7 +61,10 @@
     if (!event.target.classList.contains("connect-button")) return
 
     const peerName = event.target.innerText
+
+    //connect to peer
     const theirPeerId = event.target.innerText
+    peer.connect(theirPeerId)
     const dataConnection = peer.connect(theirPeerId)
     dataConnection.on("open", () => {
       console.log("connection open")
