@@ -76,7 +76,7 @@
     })
     //listen for custom event "peer-changed"
     document.addEventListener("peer-changed", event => {
-      console.log(event)
+      //console.log(event)
     })
   })
 
@@ -84,7 +84,13 @@
     console.log(e)
     const peerId = e.detail
     console.log(peerId)
-    const connectButton = document.querySelector(`.connect-button.peerId-${peerId}`)
-    console.log(connectButton)
+    const connectButtonEl = document.querySelector(`.connect-button.peerId-${peerId}`)
+    //Remove class 'connected' from button
+    document.querySelectorAll(".connect-button").forEach(button => {
+      button.classList.remove("connected")
+    })
+    //Add class 'connected' to clicked button
+    connectButtonEl.classList.add("connected")
+    console.log(connectButtonEl)
   })
 })() //end of anonym function. you need to add '()'
