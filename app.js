@@ -46,7 +46,7 @@
 
     dataConnection = connection
     dataConnection.on("data", textMessage => {
-      console.log(textMessage)
+      printMessage(textMessage)
     })
     const event = new CustomEvent("peer-changed", { detail: connection.peer })
     document.dispatchEvent(event)
@@ -84,7 +84,7 @@
     const theirPeerId = event.target.innerText
     dataConnection = peer.connect(theirPeerId)
     dataConnection.on("data", textMessage => {
-      console.log(dataConnection.peer + ":" + textMessage)
+      printMessage(textMessage)
     })
     dataConnection.on("open", () => {
       console.log("connection open")
