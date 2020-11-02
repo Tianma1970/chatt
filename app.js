@@ -8,8 +8,19 @@
   //Event Listener for send button
   const sendButtonEl = document.querySelector(".send-new-message-button")
 
+  const messagesEl = document.querySelector(".messages")
+
+  const newMessageEl = document.querySelector(".new-message")
+
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
+
+  const printMessage = text => {
+    const messageContainer = document.createElement("div")
+    messageContainer.classList.add("message")
+    messageContainer.innerHTML = `<div>${text}</div>`
+    messagesEl.append(messageContainer)
+  }
 
   //Connect to peer server
 
