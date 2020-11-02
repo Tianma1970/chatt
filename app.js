@@ -47,7 +47,7 @@
           return true
         }) //remove our own name
         .map(peer => {
-          return `<li><button class="connect-button">${peer}</button></li>`
+          return `<li><button class="connect-button peerId-${peer}">${peer}</button></li>`
         })
         .join("")
 
@@ -75,5 +75,13 @@
     document.addEventListener("peer-changed", event => {
       console.log(event)
     })
+  })
+
+  document.addEventListener("peer-changed", e => {
+    console.log(e)
+    const peerId = e.detail
+    console.log(peerId)
+    const connectButton = document.querySelector(`.connect-button.peerId-${peerId}`)
+    console.log(connectButton)
   })
 })() //end of anonym function. you need to add '()'
