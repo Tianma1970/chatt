@@ -129,8 +129,9 @@
     console.log(message.value)
     if (!dataConnection) return
 
-    // const incommingMessage = document.querySelector(".message")
-    // incommingMessage.innerText = message.value
-    dataConnection.send(message.value)
+    //dataConnection.send(message.value)
+
+    dataConnection.send(newMessageEl.value)
+    printMessage(newMessageEl.value)
   })
-})() //end of anonym function. you need to add '()'
+})() //end of anonym function. we need to add '()'
