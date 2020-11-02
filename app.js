@@ -1,8 +1,12 @@
 //anonym function
 ;(function () {
+  let dataConnection = null
   //our querySelectors
   //Event Listener for click peer button
   const peers = document.querySelector(".peers")
+
+  //Event Listener for send button
+  const sendButtonEl = document.querySelector(".send-new-message-button")
 
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
@@ -36,6 +40,18 @@
     console.error(errorMessage)
   })
 
+  //On incmming connection
+  peer.on("connection", connection => {
+    console.log(connection)
+
+    dataConnection = connection
+    dataConnection.on("data", textMessage => {
+      console.log(textMessage)
+    })
+    const event = new CustomEvent("peer-changed", { detail: connection.peer })
+    document.dispatchEvent(event)
+  })
+
   // Event listener for click "Refresh list"
   const refreshPeersListButtonEl = document.querySelector(".list-all-peers-button")
   refreshPeersListButtonEl.addEventListener("click", () => {
@@ -61,11 +77,15 @@
     if (!event.target.classList.contains("connect-button")) return
 
     const peerName = event.target.innerText
+    //close existing connection
+    dataConnection && dataConnection.close()
 
     //connect to peer
     const theirPeerId = event.target.innerText
-    peer.connect(theirPeerId)
-    const dataConnection = peer.connect(theirPeerId)
+    dataConnection = peer.connect(theirPeerId)
+    dataConnection.on("data", textMessage => {
+      console.log(dataConnection.peer + ":" + textMessage)
+    })
     dataConnection.on("open", () => {
       console.log("connection open")
       //Dispatch Custom Event with connected peer id
@@ -73,10 +93,7 @@
         detail: theirPeerId
       })
       document.dispatchEvent(event)
-    })
-    //listen for custom event "peer-changed"
-    document.addEventListener("peer-changed", event => {
-      //console.log(event)
+      // dataConnection = connection
     })
   })
 
@@ -92,5 +109,17 @@
     //Add class 'connected' to clicked button
     connectButtonEl.classList.add("connected")
     console.log(connectButtonEl)
+  })
+
+  //EventListener for click on send
+  sendButtonEl.addEventListener("click", () => {
+    //Get new message from text input
+    const message = document.querySelector(".new-message")
+    console.log(message.value)
+    if (!dataConnection) return
+
+    // const incommingMessage = document.querySelector(".message")
+    // incommingMessage.innerText = message.value
+    dataConnection.send(message.value)
   })
 })() //end of anonym function. you need to add '()'
