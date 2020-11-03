@@ -20,6 +20,7 @@
     messageContainer.classList.add("message", who)
     messageContainer.innerHTML = `<div>${text}</div>`
     messagesEl.append(messageContainer)
+    messagesEl.scrollTop = messagesEl.scrollHeight
   }
 
   //Connect to peer server
@@ -120,6 +121,7 @@
     dataConnection.on("data", textMessage => {
       printMessage(textMessage, "them")
     })
+    newMessageEl.focus()
   })
 
   //EventListener for click on send
