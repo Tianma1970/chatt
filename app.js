@@ -144,6 +144,16 @@
     if (e.keyCode === 13) {
       dataConnection.send(newMessageEl.value)
       printMessage(newMessageEl.value, "me")
+      //clear text input field
+      newMessageEl.value = ""
     }
   })
+  //clear text input field
+  newMessageEl.value = ""
+
+  // const sendMessage = () => {} DRY
 })() //end of anonym function. we need to add '()'
+
+// dataConnection.send(newMessageEl.value)
+// printMessage(newMessageEl.value, "me")
+//extra function
