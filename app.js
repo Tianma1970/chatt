@@ -86,6 +86,7 @@
     if (!event.target.classList.contains("connect-button")) return
 
     const peerName = event.target.innerText
+
     //close existing connection
     dataConnection && dataConnection.close()
 
@@ -128,9 +129,16 @@
     console.log(message.value)
     if (!dataConnection) return
 
-    //dataConnection.send(message.value)
-
+    //Get new message from text input
     dataConnection.send(newMessageEl.value)
     printMessage(newMessageEl.value, "me")
+  })
+  newMessageEl.addEventListener("keyup", e => {
+    if (!dataConnection) return
+
+    if (e.keyCode === 13) {
+      dataConnection.send(newMessageEl.value)
+      printMessage(newMessageEl.value, "me")
+    }
   })
 })() //end of anonym function. we need to add '()'
