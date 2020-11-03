@@ -144,7 +144,3 @@
   sendButtonEl.addEventListener("click", sendMessage)
   newMessageEl.addEventListener("keyup", sendMessage)
 })() //end of anonym function. we need to add '()'
-
-// dataConnection.send(newMessageEl.value)
-// printMessage(newMessageEl.value, "me")
-//extra function
