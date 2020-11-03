@@ -54,8 +54,11 @@
 
   //On incmming connection
   peer.on("connection", connection => {
+    //close existing connection
+    dataConnection && dataConnection.close()
     console.log(connection)
 
+    //set new connection
     dataConnection = connection
 
     const event = new CustomEvent("peer-changed", { detail: connection.peer })
