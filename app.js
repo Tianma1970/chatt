@@ -151,4 +151,12 @@
   //EventListener for click on send
   sendButtonEl.addEventListener("click", sendMessage)
   newMessageEl.addEventListener("keyup", sendMessage)
+
+  //Event Listener for click 'Start video chatt'
+  const start = theirVideoContainer.querySelector(".start")
+  const stop = theirVideoContainer.querySelector(".stop")
+  start.addEventListener("click", () => {
+    start.classList.remove("active")
+    stop.classList.add("active")
+  })
 })() //end of anonym function. we need to add '()'
