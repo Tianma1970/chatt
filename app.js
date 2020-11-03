@@ -125,6 +125,9 @@
       printMessage(textMessage, "them")
     })
     newMessageEl.focus()
+
+    const theirVideoContainer = document.querySelector(".video-container.them")
+    theirVideoContainer.querySelector(".name").innerText = peerId
   })
 
   //clear text input field
