@@ -128,6 +128,7 @@
 
     const theirVideoContainer = document.querySelector(".video-container.them")
     theirVideoContainer.querySelector(".name").innerText = peerId
+    theirVideoContainer.classList.add("connected")
   })
 
   //clear text input field
