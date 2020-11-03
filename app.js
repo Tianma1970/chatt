@@ -15,9 +15,9 @@
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
 
-  const printMessage = text => {
+  const printMessage = (text, who) => {
     const messageContainer = document.createElement("div")
-    messageContainer.classList.add("message")
+    messageContainer.classList.add("message", who)
     messageContainer.innerHTML = `<div>${text}</div>`
     messagesEl.append(messageContainer)
   }
@@ -56,9 +56,7 @@
     console.log(connection)
 
     dataConnection = connection
-    dataConnection.on("data", textMessage => {
-      printMessage(textMessage)
-    })
+
     const event = new CustomEvent("peer-changed", { detail: connection.peer })
     document.dispatchEvent(event)
   })
@@ -94,9 +92,7 @@
     //connect to peer
     const theirPeerId = event.target.innerText
     dataConnection = peer.connect(theirPeerId)
-    dataConnection.on("data", textMessage => {
-      printMessage(textMessage)
-    })
+
     dataConnection.on("open", () => {
       console.log("connection open")
       //Dispatch Custom Event with connected peer id
@@ -111,7 +107,7 @@
   document.addEventListener("peer-changed", e => {
     console.log(e)
     const peerId = e.detail
-    console.log(peerId)
+
     const connectButtonEl = document.querySelector(`.connect-button.peerId-${peerId}`)
     //Remove class 'connected' from button
     document.querySelectorAll(".connect-button").forEach(button => {
@@ -119,7 +115,10 @@
     })
     //Add class 'connected' to clicked button
     connectButtonEl.classList.add("connected")
-    console.log(connectButtonEl)
+
+    dataConnection.on("data", textMessage => {
+      printMessage(textMessage, "them")
+    })
   })
 
   //EventListener for click on send
@@ -132,6 +131,10 @@
     //dataConnection.send(message.value)
 
     dataConnection.send(newMessageEl.value)
-    printMessage(newMessageEl.value)
+    printMessage(newMessageEl.value, "me")
   })
 })() //end of anonym function. we need to add '()'
+
+// dataConnection.on("data", textMessage => {
+//   printMessage(textMessage)
+// })// skal kan flyttes til EventListener peer-changed
