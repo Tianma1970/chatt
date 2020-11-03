@@ -12,6 +12,8 @@
 
   const newMessageEl = document.querySelector(".new-message")
 
+  const theirVideoContainer = document.querySelector(".video-container.them")
+
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
 
