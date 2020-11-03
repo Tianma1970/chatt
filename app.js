@@ -127,31 +127,22 @@
     newMessageEl.focus()
   })
 
-  //EventListener for click on send
-  sendButtonEl.addEventListener("click", () => {
-    //Get new message from text input
-    const message = document.querySelector(".new-message")
-    console.log(message.value)
+  //clear text input field
+  newMessageEl.value = ""
+
+  const sendMessage = e => {
     if (!dataConnection) return
 
-    //Get new message from text input
-    dataConnection.send(newMessageEl.value)
-    printMessage(newMessageEl.value, "me")
-  })
-  newMessageEl.addEventListener("keyup", e => {
-    if (!dataConnection) return
-
-    if (e.keyCode === 13) {
+    if (e.type === "click" || e.keyCode === 13) {
       dataConnection.send(newMessageEl.value)
       printMessage(newMessageEl.value, "me")
       //clear text input field
       newMessageEl.value = ""
     }
-  })
-  //clear text input field
-  newMessageEl.value = ""
-
-  // const sendMessage = () => {} DRY
+  }
+  //EventListener for click on send
+  sendButtonEl.addEventListener("click", sendMessage)
+  newMessageEl.addEventListener("keyup", sendMessage)
 })() //end of anonym function. we need to add '()'
 
 // dataConnection.send(newMessageEl.value)
