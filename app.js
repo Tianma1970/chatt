@@ -134,7 +134,3 @@
     printMessage(newMessageEl.value, "me")
   })
 })() //end of anonym function. we need to add '()'
-
-// dataConnection.on("data", textMessage => {
-//   printMessage(textMessage)
-// })// skal kan flyttes til EventListener peer-changed
