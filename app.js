@@ -74,9 +74,10 @@
       const peerListEl = document.querySelector(".peers")
       const peerEl = peers
         .filter(peerId => {
+          //remove our own name
           if (peerId === peer._id) return false
           return true
-        }) //remove our own name
+        })
         .map(peer => {
           return `<li><button class="connect-button peerId-${peer}">${peer}</button></li>`
         })
@@ -98,6 +99,7 @@
 
     //connect to peer
     const theirPeerId = event.target.innerText
+    console.log(theirPeerId)
     dataConnection = peer.connect(theirPeerId)
 
     dataConnection.on("open", () => {
@@ -107,7 +109,6 @@
         detail: theirPeerId
       })
       document.dispatchEvent(event)
-      // dataConnection = connection
     })
   })
 
@@ -159,4 +160,4 @@
     start.classList.remove("active")
     stop.classList.add("active")
   })
-})() //end of anonym function. we need to add '()'
+})() //end of anonym function. we need to add '()' in order to invoke the function
