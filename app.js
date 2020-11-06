@@ -125,7 +125,7 @@
     connectButtonEl.classList.add("connected")
 
     dataConnection.on("data", textMessage => {
-      printMessage(textMessage, "them")
+      printMessage(peerId + ": " + textMessage, "them")
     })
     newMessageEl.focus()
 
