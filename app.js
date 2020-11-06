@@ -144,7 +144,7 @@
 
     if (e.type === "click" || e.keyCode === 13) {
       dataConnection.send(newMessageEl.value)
-      printMessage(newMessageEl.value, "me")
+      printMessage(peerId + ": " + newMessageEl.value, "me")
       //clear text input field
       newMessageEl.value = ""
     }
