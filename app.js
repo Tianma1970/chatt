@@ -125,7 +125,7 @@
     connectButtonEl.classList.add("connected")
 
     dataConnection.on("data", textMessage => {
-      printMessage(peerId + ": " + textMessage, "them")
+      printMessage("<b>" + peerId + ": " + "</b>" + textMessage, "them")
     })
     newMessageEl.focus()
 
@@ -144,7 +144,7 @@
 
     if (e.type === "click" || e.keyCode === 13) {
       dataConnection.send(newMessageEl.value)
-      printMessage(peerId + ": " + newMessageEl.value, "me")
+      printMessage("<b>" + peerId + ": " + "</b>" + newMessageEl.value, "me")
       //clear text input field
       newMessageEl.value = ""
     }
