@@ -3,7 +3,7 @@
   let dataConnection = null
 
   let mediaConnection = null
-  //Event Listener for click peer button
+
   //our querySelectors
   const peers = document.querySelector(".peers")
   const sendButtonEl = document.querySelector(".send-new-message-button")
@@ -137,11 +137,11 @@
     const peerId = e.detail
 
     const connectButtonEl = document.querySelector(`.connect-button.peerId-${peerId}`)
-    //Remove class 'connected' from button
+
     document.querySelectorAll(".connect-button").forEach(button => {
       button.classList.remove("connected")
     })
-    //Add class 'connected' to clicked button
+
     connectButtonEl.classList.add("connected")
     const date = new Date().toUTCString()
 
