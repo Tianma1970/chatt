@@ -169,4 +169,10 @@
     start.classList.remove("active")
     stop.classList.add("active")
   })
+
+  // EventListener for click 'Hang up'
+  stop.addEventListener("click", () => {
+    stop.classList.remove("active")
+    start.classList.add("active")
+  })
 })() //end of anonym function. we need to add '()' in order to invoke the function
