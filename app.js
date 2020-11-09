@@ -14,6 +14,13 @@
 
   const theirVideoContainer = document.querySelector(".video-container.them")
 
+  const videoOfMeEl = document.querySelector(".video-container.me video")
+
+  navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(stream => {
+    videoOfMeEl.muted = true
+    videoOfMeEl.srcObject = stream
+  })
+
   //Get peer id (hash) from URL
   const peerId = location.hash.slice(1)
 
