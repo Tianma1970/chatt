@@ -123,9 +123,11 @@
     })
     //Add class 'connected' to clicked button
     connectButtonEl.classList.add("connected")
+    const date = new Date().toUTCString()
 
+    console.log(date)
     dataConnection.on("data", textMessage => {
-      printMessage("<b>" + peerId + ": " + "</b>" + textMessage, "them")
+      printMessage("<b>" + peerId + ": " + "</b>" + textMessage + " " + "<br><i>recieved on: </i>" + date, "them")
     })
     newMessageEl.focus()
 
