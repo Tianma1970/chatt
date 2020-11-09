@@ -60,11 +60,25 @@
     console.error(errorMessage)
   })
 
+  //EventListener for incoming video call
+  peer.on("call", incomingCall => {
+    mediaConnection && mediaConnection.close()
+
+    //Answer incoming call
+    navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(myStream => {
+      incomingCall.answer(myStream)
+      mediaConnection = incomingCall
+      mediaConnection.on("stream", theirStream => {
+        videoOfThemEl.muted = true
+        videoOfThemEl.srcObject = theirStream
+      })
+    })
+  })
   //On incmming connection
   peer.on("connection", connection => {
     //close existing connection
     dataConnection && dataConnection.close()
-    console.log(connection)
+    //console.log(connection)
 
     //set new connection
     dataConnection = connection
@@ -162,16 +176,27 @@
   newMessageEl.addEventListener("keyup", sendMessage)
 
   //Event Listener for click 'Start video chatt'
-  const start = theirVideoContainer.querySelector(".start")
-  const stop = theirVideoContainer.querySelector(".stop")
+
   start.addEventListener("click", () => {
     start.classList.remove("active")
     stop.classList.add("active")
+    //Start video call with remote peer
+    navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(myStream => {
+      mediaConnection && mediaConnection.close()
+
+      const theirPeerId = dataConnection.peer
+      mediaConnection = peer.call(theirPeerId, myStream)
+      mediaConnection.on("stream", theirStream => {
+        videoOfThemEl.muted = true
+        videoOfThemEl.srcObject = theirStream
+      })
+    })
   })
 
   // EventListener for click 'Hang up'
   stop.addEventListener("click", () => {
     stop.classList.remove("active")
     start.classList.add("active")
+    mediaConnection && mediaConnection.close()
   })
 })() //end of anonym function. we need to add '()' in order to invoke the function
