@@ -1,20 +1,19 @@
 //anonym function
 ;(function () {
   let dataConnection = null
-  //our querySelectors
+
+  let mediaConnection = null
   //Event Listener for click peer button
+  //our querySelectors
   const peers = document.querySelector(".peers")
-
-  //Event Listener for send button
   const sendButtonEl = document.querySelector(".send-new-message-button")
-
   const messagesEl = document.querySelector(".messages")
-
   const newMessageEl = document.querySelector(".new-message")
-
   const theirVideoContainer = document.querySelector(".video-container.them")
-
+  const videoOfThemEl = document.querySelector(".video-container.them video")
   const videoOfMeEl = document.querySelector(".video-container.me video")
+  const start = theirVideoContainer.querySelector(".start")
+  const stop = theirVideoContainer.querySelector(".stop")
 
   navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(stream => {
     videoOfMeEl.muted = true
